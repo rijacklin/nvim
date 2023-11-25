@@ -33,18 +33,55 @@ function Plugin.config()
     --         "mason.providers.client",
     --         "mason.providers.registry-api",
 				-- },
-				-- opts = function (_, opts)
-				-- 		vim.list_extend(opts.ensure_installed, { "prettierd" })
-				-- end
+				opts = function (_, opts)
+						vim.list_extend(opts.ensure_installed, { "prettierd" })
+				end
 		})
 
-		require('mason-lspconfig').setup()
+		require('mason-lspconfig').setup({
+				automatic_installation = true
+		})
 
 		-- require('lspconfig').html.setup{}
 		-- require('lspconfig').emmet_ls.setup{}
 		-- require('lspconfig').cssls.setup{}
-		-- require('lspconfig').tsserver.setup{}
 		-- require('lspconfig').tailwindcss.setup{}
+		-- require('lspconfig').tsserver.setup{
+		-- 	tsserver = {
+		-- 		root_dir = function(...)
+		-- 			return require("lspconfig.util").root_pattern(".git")(...)
+		-- 		end,
+		-- 	},
+		-- }
+
+		require('lspconfig').efm.setup {
+				init_options = {documentFormatting = true},
+				settings = {
+						rootMarkers = {".git/"},
+						languages = {
+								prettierd = {
+									formatCommand = 'prettierd "${INPUT}"',
+									formatStdin = true,
+									env = {
+										string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
+									},
+								},
+								eslint = {
+										lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+										lintStdin = true,
+										lintFormats = {"%f:%l:%c: %m"},
+										lintIgnoreExitCode = true,
+										formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+										formatStdin = true
+								},
+						}
+				}
+		}
+
+		require('lspconfig').rust_analyzer.setup({})
+
+		-- require('lspconfig').eslint_d.setup{}
+
 		-- require('lspconfig').astro.setup{}
 		-- require('lspconfig').clangd.setup{}
 		-- require('lspconfig').codelldb.setup{}
@@ -162,7 +199,7 @@ function user.lsp_attach()
 		bind('n', 'go', lsp.type_definition, opts)
 		bind('n', 'gr', lsp.references, opts)
 		bind('n', 'gs', lsp.signature_help, opts)
-		bind('n', '<F2>', lsp.rename, opts)
+		bind('n', '<leader>r', lsp.rename, opts)
 		bind('n', '<F4>', lsp.code_action, opts)
 
 		bind('n', 'gl', vim.diagnostic.open_float, opts)

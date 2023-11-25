@@ -28,6 +28,9 @@ vim.keymap.set('n', '<C-A>', require('nvim-tree.api').fs.create)
 vim.keymap.set('n', '<leader>v', require('nvim-tree.api').node.open.vertical)
 vim.keymap.set('n', '<leader>s', require('nvim-tree.api').node.open.horizontal)
 
+-- LSP
+vim.keymap.set('n', 'K', '<cmd>:lua vim.lsp.buf.hover() <CR>')
+
 -- Swap windows / splits
 -- vim.keymap.set('n', '<C-R>', '<C-W><C-R>')
 
