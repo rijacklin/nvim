@@ -30,10 +30,10 @@ vim.opt.textwidth = 80
 vim.g.nolist = true
 
 -- Transparent nvim
-vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "Pmenu", "Float", "NormalFloat" })
+-- vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "Pmenu", "Float", "NormalFloat" })
 
 -- Transparency
-vim.cmd([[ au ColorScheme * hi Normal gui=none ]])
+-- vim.cmd([[ au ColorScheme * hi Normal gui=none ]])
 
 -- Disable new line comment continuation
 vim.cmd([[ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro ]])

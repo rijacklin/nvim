@@ -6,7 +6,9 @@ return {
 		config = function()
 				require('lualine').setup({
 						options = {
-								theme = "catppuccin",
+								theme = "sonokai",
+								-- theme = "tokyonight",
+								-- theme = "catppuccin",
 						}
 				})
 		end
