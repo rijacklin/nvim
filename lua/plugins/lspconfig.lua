@@ -79,6 +79,7 @@ function Plugin.config()
 		}
 
 		require('lspconfig').rust_analyzer.setup({})
+		require('lspconfig').clangd.setup({})
 
 		-- require('lspconfig').eslint_d.setup{}
 

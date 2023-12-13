@@ -49,9 +49,15 @@ return {
 		-- 	-- vim.cmd[[colorscheme tokyonight]]
 		-- end
 
-		'sainnhe/sonokai',
+		-- 'sainnhe/sonokai',
+		-- lazy = false,
+		-- config = function()
+		-- 	vim.cmd[[colorscheme sonokai]]
+		-- end
+
+		'rebelot/kanagawa.nvim',
 		lazy = false,
 		config = function()
-			vim.cmd[[colorscheme sonokai]]
+			vim.cmd[[colorscheme kanagawa]]
 		end
 }
