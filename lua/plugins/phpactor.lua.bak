@@ -1,0 +1,10 @@
+return {
+	"gbprod/phpactor.nvim",
+	-- run = require("phpactor.handler.update"),
+	requires = {
+		{ "nvim-lua/plenary.nvim" },
+	},
+	config = function()
+		require("phpactor").setup()
+	end,
+}
