@@ -7,6 +7,7 @@ Plugin.dependencies = {
 		{'williamboman/mason.nvim'},
 		{'williamboman/mason-lspconfig.nvim'},
 		{'hrsh7th/cmp-nvim-lsp'},
+		{'ziglang/zig.vim'},
 }
 
 Plugin.cmd = 'Lsp'
@@ -54,32 +55,55 @@ function Plugin.config()
 		-- 	},
 		-- }
 
-		require('lspconfig').efm.setup {
-				init_options = {documentFormatting = true},
-				settings = {
-						rootMarkers = {".git/"},
-						languages = {
-								prettierd = {
-									formatCommand = 'prettierd "${INPUT}"',
-									formatStdin = true,
-									env = {
-										string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
-									},
-								},
-								eslint = {
-										lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-										lintStdin = true,
-										lintFormats = {"%f:%l:%c: %m"},
-										lintIgnoreExitCode = true,
-										formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-										formatStdin = true
-								},
-						}
-				}
-		}
+		-- require('lspconfig').efm.setup {
+		-- 		init_options = {documentFormatting = true},
+		-- 		settings = {
+		-- 				rootMarkers = {".git/"},
+		-- 				languages = {
+		-- 						prettierd = {
+		-- 							formatCommand = 'prettierd "${INPUT}"',
+		-- 							formatStdin = true,
+		-- 							env = {
+		-- 								string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
+		-- 							},
+		-- 						},
+		-- 						eslint = {
+		-- 								lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+		-- 								lintStdin = true,
+		-- 								lintFormats = {"%f:%l:%c: %m"},
+		-- 								lintIgnoreExitCode = true,
+		-- 								formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+		-- 								formatStdin = true
+		-- 						},
+		-- 				}
+		-- 		}
+		-- }
 
-		require('lspconfig').rust_analyzer.setup({})
+		require('lspconfig').svelte.setup({
+			filetypes = { "svelte", "html" }
+		});
+
+		require('lspconfig').rust_analyzer.setup({
+			settings = {
+				['rust_analyzer'] = {
+					cargo = {
+						allFeatures = true,
+					}
+				}
+			}
+		})
+
+		require('lspconfig').gopls.setup({})
+
+		require('lspconfig').zls.setup({})
+
 		require('lspconfig').clangd.setup({})
+		
+		-- require('lspconfig').jdtls.setup({cmd = { 'jdtls' }})
+
+		require('lspconfig').intelephense.setup({})
+
+		require('lspconfig').jedi_language_server.setup{}
 
 		-- require('lspconfig').eslint_d.setup{}
 

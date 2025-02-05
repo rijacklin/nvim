@@ -7,6 +7,12 @@ return {
 
 		-- ADAPTERS
 
+		dap.adapters.php = {
+			type = "executable",
+			command = "node",
+			args = { os.getenv("HOME") .. "/vscode-php-debug/out/phpDebug.js" },
+		}
+
 		dap.adapters.lldb = {
 			type = "executable",
 			command = "/usr/local/bin/lldb-vscode", -- adjust as needed
@@ -31,6 +37,31 @@ return {
 		}
 
 		-- CONFIGURATIONS
+
+		-- dap.configurations.java = {
+		-- 	{
+		-- 		javaExec = "java",
+		-- 		request = "launch",
+		-- 		type = "java",
+		-- 	},
+		-- 	{
+		-- 		type = 'java',
+		-- 		request = 'attach',
+		-- 		name = "Debug (Attach) - Remote",
+		-- 		hostName = "127.0.0.1",
+		-- 		port = 5005,
+		-- 	},
+		-- }
+
+		dap.configurations.php = {
+			{
+				type = "php",
+				request = "launch",
+				name = "Listen for Xdebug",
+				port = 9003,
+				logs = true,
+			}
+		}
 
 		dap.configurations.cpp = {
 			lldb -- different debuggers or more configurations can be used here

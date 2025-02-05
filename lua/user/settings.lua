@@ -29,14 +29,17 @@ vim.opt.wrap = true
 vim.opt.textwidth = 80
 vim.g.nolist = true
 
+-- zig/zls
+vim.g.zig_fmt_autosave = 0
+
 -- Transparent nvim
--- vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "Pmenu", "Float", "NormalFloat" })
+vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "Pmenu", "Float", "NormalFloat" })
 
 -- Transparency
--- vim.cmd([[ au ColorScheme * hi Normal gui=none ]])
+vim.cmd([[ au ColorScheme * hi Normal gui=none ]])
 
 -- Disable new line comment continuation
-vim.cmd([[ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro ]])
+-- vim.cmd([[ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro ]])
 
 -- vim.cmd([[
 -- 		autocmd BufRead,BufEnter *.astro set filetype=astro
@@ -46,3 +49,32 @@ vim.cmd([[ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro ]])
 --   au! BufRead,BufNewFile *.swift set ft=swift
 -- augroup END
 -- ]])
+
+-- JDTLS
+-- vim.cmd [[
+-- augroup jdtls_lsp
+--     autocmd!
+--     autocmd FileType java lua require'jdtls.jdtls_setup'.setup()
+-- augroup end
+-- ]]
+
+-- JDTLS
+vim.cmd [[
+augroup jdtls_lsp
+    autocmd!
+    autocmd FileType java lua require'jdtls.setup'
+augroup end
+]]
+
+-- Fixed svelte file html syntax highlighting
+-- vim.cmd [[
+-- au BuffReadPost *.svelte set syntax=html
+-- ]]
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"tex", "markdown", "html"},
+    callback = function()
+		vim.opt_local.textwidth = 0
+    	vim.opt_local.colorcolumn = ""
+    end
+})
